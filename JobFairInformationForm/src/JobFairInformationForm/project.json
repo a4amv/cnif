@@ -1,5 +1,5 @@
-﻿{
-  "userSecretsId": "aspnet-JobFair-be6e6350-7f76-48e9-a466-f05b601e660e",
+{
+  "userSecretsId": "aspnet-TravelBuddy-be6e6350-7f76-48e9-a466-f05b601e660e",
 
   "dependencies": {
     "Microsoft.NETCore.App": {

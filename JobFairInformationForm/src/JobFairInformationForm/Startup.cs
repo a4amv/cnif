@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using JobFairInformationForm.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobFairInformationForm
 {
@@ -37,6 +39,11 @@ namespace JobFairInformationForm
             services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddMvc();
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddSingleton<ApplicationDbContextFactory>(a => new ApplicationDbContextFactory(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,8 +71,13 @@ namespace JobFairInformationForm
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "overview",
+                    template: "overview",
+                    defaults: new { controller = "InformationForm", action = "Overview" });
+
+                routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=InformationForm}/{action=Index}/{id?}");
             });
         }
     }
