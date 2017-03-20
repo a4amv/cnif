@@ -10,11 +10,13 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Location" class="col-md-3 control-label">Location</label>
-                    <div class="col-md-8">   
+                    <div class="col-md-8">
+                        <form asp-action="">
                             <input type="checkbox" name="location" value="Prague">Prague<br>
                             <input type="checkbox" name="location" value="Zlin">Zlin<br>
                             <input type="checkbox" name="location" value="Bratislava">Bratislava<br>
                             <input type="checkbox" name="location" value="Bucharest">Bucharest<br>
+                        </form>
 
                     </div>
                 </div>

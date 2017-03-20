@@ -1,5 +1,7 @@
-﻿
-    
+﻿.row *, .form-group * {
+    border: 1px solid black;
+}
+
 body {
     padding-top: 50px;
     padding-bottom: 20px;
@@ -38,10 +40,3 @@ textarea {
     display: none
   }
 }
-
-
-.col-md-4 img {
-padding-top: 20px;
-}
-
-

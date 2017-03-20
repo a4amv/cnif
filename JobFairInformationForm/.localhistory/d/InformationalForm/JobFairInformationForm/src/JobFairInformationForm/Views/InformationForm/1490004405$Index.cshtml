@@ -10,12 +10,9 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Location" class="col-md-3 control-label">Location</label>
-                    <div class="col-md-8">   
-                            <input type="checkbox" name="location" value="Prague">Prague<br>
-                            <input type="checkbox" name="location" value="Zlin">Zlin<br>
-                            <input type="checkbox" name="location" value="Bratislava">Bratislava<br>
-                            <input type="checkbox" name="location" value="Bucharest">Bucharest<br>
-
+                    <div class="col-md-9">
+                        <input asp-for="Location" class="form-control" />
+                        <span asp-validation-for="Location" class="text-danger" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -61,7 +58,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label asp-for="GraduationDate" class="col-md-3 control-label">Expected graduation date</label>
+                    <label asp-for="GraduationDate" class="col-md-3 control-label">Graduation date</label>
                     <div class="col-md-9">
                         <input asp-for="GraduationDate" class="form-control" />
                         <span asp-validation-for="GraduationDate" class="text-danger" />
@@ -75,23 +72,15 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-offset-7 col-md-6">
+                    <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Save" class="btn btn-default" />
                     </div>
                 </div>
             </div>
         </form>
     </div>
-    <div class="col-md-4">
-        <img src="~/images/cn-group-logo.png" alt="logo"/>
-
-        
-    </div>
+    <div class="col-md-4">Nejaky text</div>
 </div>
 <div>
     <a asp-action="Index" hidden="">Back to List</a>
 </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
