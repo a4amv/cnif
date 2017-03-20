@@ -23,9 +23,9 @@
                             <div class="form-group">
                                 <label asp-for="PreferredJob" class="col-sm-4 control-label">Preffered job</label>
                                 <div class="col-sm-7">
-                                    <input type="checkbox" name="PreferredJob" value="Tester"> SW Tester<br>
-                                    <input type="checkbox" name="PreferredJob" value="Developer"> Developer<br>
-                                    <input type="text" class="form-control" placeholder="Other" name="PreferredJob"><br>
+                                    <input type="checkbox" name="location" value="Tester"> SW Tester<br>
+                                    <input type="checkbox" name="location" value="Developer"> Developer<br>
+                                    <input type="text" name="" value=""><br>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -78,9 +78,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-offset-4 col-sm-4">
+                            <div class="col-sm-offset-4 col-sm-2">
                                 <input type="submit" value="Save" class="btn btn-danger" />
-                               <a asp-action="Index" class="btn btn-default">Cancel</a>
+                                <input type="submit" value="Cancel" class="btn btn-default" />
                             </div>
                             
                         </div>
@@ -92,7 +92,16 @@
 <div>
     <a asp-action="Index" hidden="">Back to List</a>
 </div>
+<script type="text/javascript">
+    $(function () {
+        $("input[type='submit'][value='Cancel']").off().on('click', function () {
+            $("input[type!=submit]").val("");
+            alert("FDFD");
+
+        });
+
+    });
+</script>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
 }

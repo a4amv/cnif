@@ -51,40 +51,9 @@ margin:0 auto;
 
 }
 
-
-body  {
-/*background: url(fingerprint.png);
-background-repeat:no-repeat;
-border: 1px solid black;
-opacity:0.6;
-content: "";
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  z-index: -1;*/   
+fieldset {
+    margin: 8px;
+    border: 1px solid silver;
+    padding: 8px;    
+    border-radius: 4px;
 }
-
-body::after  {
-background: url(fingerprint.png);
-background-position: center;
-background-repeat:no-repeat;
-background-size: 70rem;
-border: 1px solid black;
-opacity:0.05;
-content: "";
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  z-index: -1;   
-}
-
-.row * {
-opacity:1;
-
-}
-
-

@@ -4,95 +4,94 @@
     Questionnaire
 </h2>
 <img src="~/images/cn-group-logo.png" alt="logo" />
-
-    
+<div class="row">
+    <div class="col-md-12">
             <form asp-action="Create">
                     <div class="form-horizontal">
                         @*<h4>InformationFormViewModel</h4>*@
                         <hr />
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="form-group">
-                                <label asp-for="Location" class="col-sm-4 control-label">Location</label>
-                                <div class="col-sm-7">
-                                    <input type="checkbox" name="location" value="Prague"> Prague<br>
-                                    <input type="checkbox" name="location" value="Zlin"> Zlin<br>
-                                    <input type="checkbox" name="location" value="Bratislava"> Bratislava<br>
-                                    <input type="checkbox" name="location" value="Bucharest"> Bucharest<br>
+                                <label asp-for="Location" class="col-md-3 control-label">Location</label>
+                                <div class="col-md-8">
+                                    <input type="checkbox" name="location" value="Prague">Prague<br>
+                                    <input type="checkbox" name="location" value="Zlin">Zlin<br>
+                                    <input type="checkbox" name="location" value="Bratislava">Bratislava<br>
+                                    <input type="checkbox" name="location" value="Bucharest">Bucharest<br>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label asp-for="PreferredJob" class="col-sm-4 control-label">Preffered job</label>
-                                <div class="col-sm-7">
-                                    <input type="checkbox" name="PreferredJob" value="Tester"> SW Tester<br>
-                                    <input type="checkbox" name="PreferredJob" value="Developer"> Developer<br>
-                                    <input type="text" class="form-control" placeholder="Other" name="PreferredJob"><br>
+                                <label asp-for="PreferredJob" class="col-md-3 control-label">Preffered job</label>
+                                <div class="col-md-8">
+                                    <input type="checkbox" name="location" value="Tester">SW Tester<br>
+                                    <input type="checkbox" name="location" value="Developer">Developer<br>
+                                    <input type="text" name="" value=""><br>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Name" class="col-sm-4 control-label">Name</label>
-                                <div class="col-sm-7">
+                                <label asp-for="Name" class="col-md-3 control-label">Name</label>
+                                <div class="col-md-9">
                                     <input asp-for="Name" class="form-control" />
                                     <span asp-validation-for="Name" class="text-danger" />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Surname" class="col-sm-4 control-label">Surname</label>
-                                <div class="col-sm-7">
+                                <label asp-for="Surname" class="col-md-3 control-label">Surname</label>
+                                <div class="col-md-9">
                                     <input asp-for="Surname" class="form-control" />
                                     <span asp-validation-for="Surname" class="text-danger" />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label asp-for="PhoneNumber" class="col-sm-4 control-label">Phone number</label>
-                                <div class="col-sm-7">
+                                <label asp-for="PhoneNumber" class="col-md-3 control-label">Phone number</label>
+                                <div class="col-md-9">
                                     <input asp-for="PhoneNumber" class="form-control" />
                                     <span asp-validation-for="PhoneNumber" class="text-danger" />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Email" class="col-sm-4 control-label">Email</label>
-                                <div class="col-sm-7">
+                                <label asp-for="Email" class="col-md-3 control-label">Email</label>
+                                <div class="col-md-9">
                                     <input asp-for="Email" class="form-control" />
                                     <span asp-validation-for="Email" class="text-danger" />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Allocation" class="col-sm-4 control-label">Allocation</label>
-                                <div class="col-sm-7">
+                                <label asp-for="Allocation" class="col-md-3 control-label">Allocation</label>
+                                <div class="col-md-9">
                                     <input asp-for="Allocation" class="form-control" />
                                     <span asp-validation-for="Allocation" class="text-danger" />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label asp-for="GraduationDate" class="col-sm-4 control-label">Expected graduation date</label>
-                                <div class="col-sm-7">
+                                <label asp-for="GraduationDate" class="col-md-3 control-label">Expected graduation date</label>
+                                <div class="col-md-9">
                                     <input asp-for="GraduationDate" class="form-control" />
                                     <span asp-validation-for="GraduationDate" class="text-danger" />
                                 </div>
                             </div>
                         <div class="form-group">
-                            <label asp-for="Education" class="col-sm-4 control-label">Education</label>
-                            <div class="col-sm-7">
+                            <label asp-for="Education" class="col-md-3 control-label">Education</label>
+                            <div class="col-md-9">
                                 <input asp-for="Education" class="form-control" />
                                 <span asp-validation-for="Education" class="text-danger" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-offset-4 col-sm-4">
-                                <input type="submit" value="Save" class="btn btn-danger" />
-                               <a asp-action="Index" class="btn btn-default">Cancel</a>
+                            <div class="col-md-offset-7 col-md-6">
+                                <input type="submit" value="Save" class="btn btn-default" />
                             </div>
-                            
                         </div>
-
 </div>
             </form>
+</div>
 
-
+        
+</div>
 <div>
     <a asp-action="Index" hidden="">Back to List</a>
 </div>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
 }

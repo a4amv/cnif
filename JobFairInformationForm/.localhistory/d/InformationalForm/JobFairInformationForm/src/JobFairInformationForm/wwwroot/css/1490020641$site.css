@@ -52,7 +52,7 @@ margin:0 auto;
 }
 
 
-body  {
+form  {
 /*background: url(fingerprint.png);
 background-repeat:no-repeat;
 border: 1px solid black;
@@ -66,13 +66,13 @@ content: "";
   z-index: -1;*/   
 }
 
-body::after  {
+form::after  {
 background: url(fingerprint.png);
 background-position: center;
 background-repeat:no-repeat;
-background-size: 70rem;
+background-size: 50rem;
 border: 1px solid black;
-opacity:0.05;
+opacity:0.3;
 content: "";
   top: 0;
   left: 0;
