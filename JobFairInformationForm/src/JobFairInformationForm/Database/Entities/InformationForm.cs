@@ -26,5 +26,7 @@ namespace JobFairInformationForm.Database.Entities
         public DateTime GraduationDate { get; set; }
 
         public string Education { get; set; }
+
+        public string NoteString { get; set; }
     }
 }

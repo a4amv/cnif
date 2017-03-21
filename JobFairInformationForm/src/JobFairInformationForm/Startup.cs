@@ -39,6 +39,7 @@ namespace JobFairInformationForm
             services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddMvc();
+            services.AddSession();
 
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -67,7 +68,7 @@ namespace JobFairInformationForm
             app.UseApplicationInsightsExceptionTelemetry();
 
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -78,6 +79,11 @@ namespace JobFairInformationForm
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=InformationForm}/{action=Index}/{id?}");
+
+                routes.MapRoute(
+                   name: "edit",
+                   template: "edit",
+                   defaults: new { controller = "InformationForm", action = "Edit" });
             });
         }
     }

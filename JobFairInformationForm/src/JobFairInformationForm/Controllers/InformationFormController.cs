@@ -12,7 +12,9 @@ namespace JobFairInformationForm.Controllers
 {
     public class InformationFormController : Controller
     {
+        public const string MessageKey = "Message";
         protected ApplicationDbContextFactory DbFactory { get; set; }
+        public object ScriptManager { get; private set; }
 
         public InformationFormController(ApplicationDbContextFactory factory)
         {
@@ -21,6 +23,10 @@ namespace JobFairInformationForm.Controllers
         // GET: InformationForm
         public ActionResult Index()
         {
+            if (TempData.ContainsKey(MessageKey))
+            {
+                ViewData[MessageKey] = TempData[MessageKey];
+            }
             return View();
         }
 
@@ -46,6 +52,7 @@ namespace JobFairInformationForm.Controllers
                 {
                     db.Add(new InformationForm()
                     {
+                        Id= collection.Id,
                         Location = collection.Location,
                         Name = collection.Name,
                         Surname = collection.Surname,
@@ -54,10 +61,12 @@ namespace JobFairInformationForm.Controllers
                         Education = collection.Education,
                         Allocation = collection.Allocation,
                         GraduationDate = collection.GraduationDate,
-                        PreferredJob = collection.PreferredJob
+                        PreferredJob = collection.PreferredJob,
+                        NoteString = collection.NoteString
                     });
 
                     db.SaveChanges();
+                    TempData[MessageKey] = "Saved";
                 }
                 return RedirectToAction("Index");
             }
@@ -74,6 +83,7 @@ namespace JobFairInformationForm.Controllers
             {
                 var data = db.InformationForm.Select(collection => new InformationFormViewModel()
                 {
+                    Id = collection.Id,
                     Location = collection.Location,
                     Name = collection.Name,
                     Surname = collection.Surname,
@@ -82,8 +92,8 @@ namespace JobFairInformationForm.Controllers
                     Education = collection.Education,
                     Allocation = collection.Allocation,
                     GraduationDate = collection.GraduationDate,
-                    PreferredJob = collection.PreferredJob
-
+                    PreferredJob = collection.PreferredJob,
+                    NoteString = collection.NoteString
                 }).ToList();
 
                 return View(data);
@@ -94,17 +104,49 @@ namespace JobFairInformationForm.Controllers
         // GET: InformationForm/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            using (var db = DbFactory.Create())
+            {
+                var data = db.InformationForm.Select(a => new InformationFormViewModel()
+                {
+                    Id = a.Id,
+                    Location = a.Location,
+                    PreferredJob = a.PreferredJob,
+                    Name = a.Name,
+                    Surname = a.Surname,
+                    PhoneNumber = a.PhoneNumber,
+                    Email = a.Email,
+                    Allocation = a.Allocation,
+                    GraduationDate = a.GraduationDate,
+                    Education = a.Education,
+                    NoteString = a.NoteString
+                }).First(a => a.Id == id);
+                return View("Edit",  data);
+            }
         }
 
         // POST: InformationForm/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, InformationFormViewModel collection)
         {
             try
             {
-                // TODO: Add update logic here
+                using (var db = DbFactory.Create())
+                {
+                    var entity = db.InformationForm.First(a => a.Id == collection.Id);
+                    entity.Location = collection.Location;
+                    entity.PreferredJob = collection.PreferredJob;
+                    entity.Name = collection.Name;
+                    entity.Surname = collection.Surname;
+                    entity.PhoneNumber = collection.PhoneNumber;
+                    entity.Email = collection.Email;
+                    entity.Allocation = collection.Allocation;
+                    entity.GraduationDate = collection.GraduationDate;
+                    entity.Education = collection.Education;
+                    entity.NoteString = collection.NoteString;
+
+                    db.SaveChanges();
+                }
 
                 return RedirectToAction("Index");
             }
@@ -117,24 +159,15 @@ namespace JobFairInformationForm.Controllers
         // GET: InformationForm/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: InformationForm/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
+            using (var db = DbFactory.Create())
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                var entity = db.InformationForm.First(a => a.Id == id);
+                db.InformationForm.Remove(entity);
+                db.SaveChanges();
             }
-            catch
-            {
-                return View();
-            }
+            //Store data across requests
+            //TempData[MessageKey] = "You do not have permission for remove";
+            return RedirectToAction("overview");
         }
     }
 }
