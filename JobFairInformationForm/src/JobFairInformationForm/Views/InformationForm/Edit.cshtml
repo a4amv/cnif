@@ -1,9 +1,27 @@
 @model JobFairInformationForm.Models.InformationForm.InformationFormViewModel
+@using JobFairInformationForm.Controllers;
 
 <h2>
     Questionnaire
 </h2>
 <img src="~/images/cn-group-logo.png" alt="logo" />
+@if (ViewData.ContainsKey(InformationFormController.MessageKey))
+{
+    <text>
+    <div id="successMessage" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    @ViewData[InformationFormController.MessageKey]
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </text>
+}
 <form asp-action="Edit">
     <div class="form-horizontal">
         @*<h4>InformationFormViewModel</h4>*@
@@ -100,4 +118,9 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
+<script type="text/javascript">
+    $(function () {
+        $('#successMessage').modal();
+    });
+</script>
 }

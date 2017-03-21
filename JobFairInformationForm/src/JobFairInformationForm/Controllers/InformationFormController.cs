@@ -66,7 +66,7 @@ namespace JobFairInformationForm.Controllers
                     });
 
                     db.SaveChanges();
-                    TempData[MessageKey] = "Saved";
+                    TempData[MessageKey] = "Saved!";
                 }
                 return RedirectToAction("Index");
             }
@@ -120,8 +120,11 @@ namespace JobFairInformationForm.Controllers
                     Education = a.Education,
                     NoteString = a.NoteString
                 }).First(a => a.Id == id);
+
                 return View("Edit",  data);
             }
+
+
         }
 
         // POST: InformationForm/Edit/5
@@ -146,9 +149,11 @@ namespace JobFairInformationForm.Controllers
                     entity.NoteString = collection.NoteString;
 
                     db.SaveChanges();
+                    TempData[MessageKey] = "Saved!";
                 }
 
                 return RedirectToAction("Index");
+
             }
             catch
             {
