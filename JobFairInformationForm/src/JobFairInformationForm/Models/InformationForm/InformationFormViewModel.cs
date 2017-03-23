@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using JobFairInformationForm.Database.Entities;
 
 namespace JobFairInformationForm.Models.InformationForm
 {
@@ -12,10 +13,22 @@ namespace JobFairInformationForm.Models.InformationForm
         public int Id { get; set; }
 
         //[Required(ErrorMessage = "Location is required.")]
+        /// <summary>
+        /// Only output value
+        /// </summary>
         public string Location { get; set; }
 
-       // [Required(ErrorMessage = "Preferred job is required.")]
+        public List<Checkbox> LocationCheckboxes { get; set; } = new List<Checkbox>();
+
+        /// <summary>
+        /// Incomming data from post
+        /// </summary>
+        public Dictionary<int, string> CheckedLocations { get; set; } = new Dictionary<int, string>();
+
+        // [Required(ErrorMessage = "Preferred job is required.")]
         public string PreferredJob { get; set; }
+
+        public string PreferredJobOther { get; set; }
 
         [Required(ErrorMessage = "Name is required.")]
         public string Name { get; set; }

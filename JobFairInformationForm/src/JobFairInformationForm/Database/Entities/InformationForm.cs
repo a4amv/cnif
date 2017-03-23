@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@ namespace JobFairInformationForm.Database.Entities
 {
     public class InformationForm
     {
+        [Key]
         public int Id { get; set; }
 
         public string Location { get; set; }
@@ -28,5 +30,7 @@ namespace JobFairInformationForm.Database.Entities
         public string Education { get; set; }
 
         public string NoteString { get; set; }
+
+        public virtual List<InformationForm2Location> InformationForm2Locations { get; set; } = new List<InformationForm2Location>();
     }
 }

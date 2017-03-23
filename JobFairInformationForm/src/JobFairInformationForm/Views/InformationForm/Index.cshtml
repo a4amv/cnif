@@ -1,5 +1,6 @@
 @model JobFairInformationForm.Models.InformationForm.InformationFormViewModel
 @using JobFairInformationForm.Controllers;
+@using JobFairInformationForm.Database.Entities;
 
 <h2>
     Questionnaire
@@ -22,95 +23,106 @@
     </div>
     </text>
 }
-            <form asp-action="Create">
-                    <div class="form-horizontal">
-                        @*<h4>InformationFormViewModel</h4>*@
-                        <hr />
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <div class="form-group">
-                                <label asp-for="Location" class="col-sm-4 control-label">Location</label>
-                                <div class="col-sm-7">
-                                    <input type="checkbox" name="location" value="Prague"> Prague<br>
-                                    <input type="checkbox" name="location" value="Zlin"> Zlin<br>
-                                    <input type="checkbox" name="location" value="Bratislava"> Bratislava<br>
-                                    <input type="checkbox" name="location" value="Bucharest"> Bucharest<br>                            
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="PreferredJob" class="col-sm-4 control-label">Preffered job</label>
-                                <div class="col-sm-7">
-                                    <input type="checkbox" name="PreferredJob" value="Tester"> SW Tester<br>
-                                    <input type="checkbox" name="PreferredJob" value="Developer"> Developer<br>
-                                    <input type="text" class="form-control" placeholder="Other" name="PreferredJob"><br>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Name" class="col-sm-4 control-label">Name</label>
-                                <div class="col-sm-7">
-                                    <input asp-for="Name" class="form-control" />
-                                    <span asp-validation-for="Name" class="text-danger" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Surname" class="col-sm-4 control-label">Surname</label>
-                                <div class="col-sm-7">
-                                    <input asp-for="Surname" class="form-control" />
-                                    <span asp-validation-for="Surname" class="text-danger" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="PhoneNumber" class="col-sm-4 control-label">Phone number</label>
-                                <div class="col-sm-7">
-                                    <input asp-for="PhoneNumber" class="form-control" />
-                                    <span asp-validation-for="PhoneNumber" class="text-danger" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Email" class="col-sm-4 control-label">Email</label>
-                                <div class="col-sm-7">
-                                    <input asp-for="Email" class="form-control" />
-                                    <span asp-validation-for="Email" class="text-danger" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Allocation" class="col-sm-4 control-label">Allocation</label>
-                                <div class="col-sm-7">
-                                    <input asp-for="Allocation" class="form-control" />
-                                    <span asp-validation-for="Allocation" class="text-danger" />
-                                    <span class="numberOfHours">Number of hours per week.</span>
-                                </div>
-                            </div>
-                        
-                            <div class="form-group">
-                                <label asp-for="GraduationDate" class="col-sm-4 control-label">Expected graduation date</label>
-                                <div class="col-sm-7">
-                                    <input asp-for="GraduationDate" class="form-control" />
-                                    <span asp-validation-for="GraduationDate" class="text-danger" />
-                                </div>
-                            </div>
-                        <div class="form-group">
-                            <label asp-for="Education" class="col-sm-4 control-label">Education</label>
-                            <div class="col-sm-7">
-                                <input asp-for="Education" class="form-control" />
-                                <span asp-validation-for="Education" class="text-danger" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="NoteString" class="col-sm-4 control-label">Note</label>
-                            <div class="col-sm-7">
-                                <input asp-for="NoteString" class="form-control" />
-                                <span asp-validation-for="NoteString" class="text-danger" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-4 col-sm-4">
-                                <input type="submit" value="Save" class="btn btn-danger" />
-                               <a asp-action="Index" class="btn btn-default">Cancel</a>
-                            </div>
-                            
-                        </div>
-                </div>
-            </form>
+<form asp-action="Create">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-horizontal">
+        @*<h4>InformationFormViewModel</h4>*@
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="LocationCheckboxes" class="col-sm-4 control-label">Location</label>
+            <div class="col-sm-7">
+                @foreach (var checkbox in Model.LocationCheckboxes)
+                {
+                    <label for="location-@checkbox.Id" style="font-weight: normal">
+                        <input type="checkbox" id="location-@checkbox.Id" name="CheckedLocations[@checkbox.Id]" @if (checkbox.Checked) { <text> checked="checked" </text>  } /> @checkbox.Name
+                    </label><br>
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="PreferredJob" class="col-sm-4 control-label">Preffered job</label>
+            <div class="col-sm-7">
+                <label for="PreferredJob1" style="font-weight: normal">
+                    <input id="PreferredJob1" type="radio" name="PreferredJob" value="Tester" @if(Model.PreferredJob=="Tester"){<text>checked="checked"</text>}> SW Tester
+                </label><br>
+                <label for="PreferredJob2" style="font-weight: normal">
+                    <input id="PreferredJob2" type="radio" name="PreferredJob" value="Developer"  @if(Model.PreferredJob=="Developer"){<text>checked="checked"</text>}> Developer
+                </label><br>
+                <label for="PreferredJob3" style="font-weight: normal">
+                    <input id="PreferredJob3" type="radio" name="PreferredJob" value="Other"  @if(Model.PreferredJob!="Tester" && Model.PreferredJob != "Developer")
+                    {<text>checked="checked"</text>}/> Other <input type="text" name="PreferredJobOther" @if (Model.PreferredJob != "Tester" && Model.PreferredJob != "Developer") {<text> value="@Model.PreferredJob"</text>} id="other_name" />
+                </label>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Name" class="col-sm-4 control-label">Name</label>
+            <div class="col-sm-7">
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Surname" class="col-sm-4 control-label">Surname</label>
+            <div class="col-sm-7">
+                <input asp-for="Surname" class="form-control" />
+                <span asp-validation-for="Surname" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="PhoneNumber" class="col-sm-4 control-label">Phone number</label>
+            <div class="col-sm-7">
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Email" class="col-sm-4 control-label">Email</label>
+            <div class="col-sm-7">
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Allocation" class="col-sm-4 control-label">Allocation</label>
+            <div class="col-sm-7">
+                <input asp-for="Allocation" class="form-control" />
+                <span asp-validation-for="Allocation" class="text-danger" />
+                <span class="numberOfHours">Number of hours per week.</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="GraduationDate" class="col-sm-4 control-label">Expected graduation date</label>
+            <div class="col-sm-7">
+                <input asp-for="GraduationDate" class="form-control" />
+                <span asp-validation-for="GraduationDate" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Education" class="col-sm-4 control-label">Education</label>
+            <div class="col-sm-7">
+                <input asp-for="Education" class="form-control" />
+                <span asp-validation-for="Education" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="NoteString" class="col-sm-4 control-label">Note</label>
+            <div class="col-sm-7">
+                <input asp-for="NoteString" class="form-control" />
+                <span asp-validation-for="NoteString" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-4">
+                <input type="submit" value="Save" class="btn btn-danger" />
+                <a asp-action="Index" class="btn btn-default">Cancel</a>
+            </div>
+
+        </div>
+    </div>
+</form>
 
 
 <div>
@@ -119,9 +131,17 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-<script type="text/javascript">
-    $(function () {
-        $('#successMessage').modal();
-    });
-</script>
+    <script type="text/javascript">
+        $(function () {
+            $('#successMessage').modal();
+        });
+
+        $('#other_name').click(function () {
+
+            $('#PreferredJob3').prop('checked', true);
+        });
+        $("input[name='PreferredJob']:not(#PreferredJob3)").click(function () {
+            $('#other_name').val("");
+        })
+    </script>
 }

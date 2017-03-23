@@ -15,5 +15,23 @@ namespace JobFairInformationForm.Database
         }
 
         public DbSet<InformationForm> InformationForm { get; set; }
+        public DbSet<Location> Location { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<InformationForm2Location>()
+                        .HasKey(c => new { c.InformationFormId, c.LocationId });
+
+            modelBuilder.Entity<InformationForm2Location>()
+                        .HasOne<Location>(s => s.Location)
+                        .WithMany(c => c.InformationForm2Locations)
+                        .HasForeignKey(c => c.LocationId);
+
+            modelBuilder.Entity<InformationForm2Location>()
+                        .HasOne<InformationForm>(s => s.InformationForm)
+                        .WithMany(c => c.InformationForm2Locations)
+                        .HasForeignKey(c => c.InformationFormId);
+        }
     }
+
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using JobFairInformationForm.Models.InformationForm;
 using JobFairInformationForm.Database;
 using JobFairInformationForm.Database.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobFairInformationForm.Controllers
 {
@@ -27,7 +28,18 @@ namespace JobFairInformationForm.Controllers
             {
                 ViewData[MessageKey] = TempData[MessageKey];
             }
-            return View();
+            using (var db = DbFactory.Create())
+            {
+                var model = new InformationFormViewModel
+                {
+                    LocationCheckboxes = db.Location.Select(l => new Checkbox
+                    {
+                        Id = l.Id,
+                        Name = l.Name
+                    }).ToList()
+                };
+                return View(model);
+            }
         }
 
         // GET: InformationForm/Details/5
@@ -35,42 +47,77 @@ namespace JobFairInformationForm.Controllers
         {
             return View();
         }
-        
+
         // POST: InformationForm/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(InformationFormViewModel collection)
+        public ActionResult Create(InformationFormViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View("Index",collection);
+                using (var db = DbFactory.Create())
+                {
+                    model.LocationCheckboxes = db.Location.Select(l => new Checkbox
+                    {
+                        Id = l.Id,
+                        Name = l.Name
+                    }).ToList();
+                }
+                return View("Index", model);
             }
             try
             {
                 // TODO: Add insert logic here
                 using (var db = DbFactory.Create())
                 {
-                    db.Add(new InformationForm()
+                    var isUpdateAction = model.Id > 0;
+                    InformationForm entity = null;
+                    if (isUpdateAction)
                     {
-                        Id= collection.Id,
-                        Location = collection.Location,
-                        Name = collection.Name,
-                        Surname = collection.Surname,
-                        PhoneNumber = collection.PhoneNumber,
-                        Email = collection.Email,
-                        Education = collection.Education,
-                        Allocation = collection.Allocation,
-                        GraduationDate = collection.GraduationDate,
-                        PreferredJob = collection.PreferredJob,
-                        NoteString = collection.NoteString
-                    });
-
+                        entity = db.InformationForm
+                            .Include(i => i.InformationForm2Locations)
+                            .FirstOrDefault(i => i.Id == model.Id);
+                        if (entity == null)
+                        {
+                            TempData[MessageKey] = "User not found!";
+                            return RedirectToAction("Index");
+                        }
+                        db.RemoveRange(entity.InformationForm2Locations);                        
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        entity = new InformationForm();
+                        db.Add(entity);
+                    }
+                    entity.Location = model.Location;
+                    entity.Name = model.Name;
+                    entity.Surname = model.Surname;
+                    entity.PhoneNumber = model.PhoneNumber;
+                    entity.Email = model.Email;
+                    entity.Education = model.Education;
+                    entity.Allocation = model.Allocation;
+                    entity.GraduationDate = model.GraduationDate;
+                    entity.PreferredJob = (model.PreferredJob == "Other" && !string.IsNullOrWhiteSpace(model.PreferredJobOther)) ? model.PreferredJobOther : model.PreferredJob;
+                    entity.NoteString = model.NoteString;
+                    var addLocations = new List<InformationForm2Location>();
+                    var delLocations = new List<InformationForm2Location>();
+                    foreach (var pair in model.CheckedLocations)
+                    {
+                        var location = db.Location.First(l => l.Id == pair.Key);
+                        var relation = new InformationForm2Location
+                        {
+                            InformationForm = entity,
+                            Location = location
+                        };
+                        entity.InformationForm2Locations.Add(relation);
+                    }
                     db.SaveChanges();
                     TempData[MessageKey] = "Saved!";
+                    return RedirectToAction(isUpdateAction ? "Overview" : "Index");
                 }
-                return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
                 return RedirectToAction("Index");
             }
@@ -84,7 +131,7 @@ namespace JobFairInformationForm.Controllers
                 var data = db.InformationForm.Select(collection => new InformationFormViewModel()
                 {
                     Id = collection.Id,
-                    Location = collection.Location,
+                    Location = string.Join(", ", collection.InformationForm2Locations.Select(r => r.Location.Name).ToList()),
                     Name = collection.Name,
                     Surname = collection.Surname,
                     PhoneNumber = collection.PhoneNumber,
@@ -106,60 +153,70 @@ namespace JobFairInformationForm.Controllers
         {
             using (var db = DbFactory.Create())
             {
-                var data = db.InformationForm.Select(a => new InformationFormViewModel()
+                var allCheckboxes = db.Location.Select(l => new Checkbox { Id = l.Id, Name = l.Name }).ToList();
+                var entity = db.InformationForm
+                    .Include(i => i.InformationForm2Locations)
+                    .First(a => a.Id == id);
+                var checkedLocationIds = entity.InformationForm2Locations.Select(l => l.LocationId).ToList();
+                foreach (var locId in checkedLocationIds)
                 {
-                    Id = a.Id,
-                    Location = a.Location,
-                    PreferredJob = a.PreferredJob,
-                    Name = a.Name,
-                    Surname = a.Surname,
-                    PhoneNumber = a.PhoneNumber,
-                    Email = a.Email,
-                    Allocation = a.Allocation,
-                    GraduationDate = a.GraduationDate,
-                    Education = a.Education,
-                    NoteString = a.NoteString
-                }).First(a => a.Id == id);
+                    var oneLocation = allCheckboxes.FirstOrDefault(c => c.Id == locId);
+                    oneLocation.Checked = true;
+                }
+                var data = new InformationFormViewModel
+                {
+                    Id = entity.Id,
+                    LocationCheckboxes = allCheckboxes,
+                    PreferredJob = entity.PreferredJob,
+                    Name = entity.Name,
+                    Surname = entity.Surname,
+                    PhoneNumber = entity.PhoneNumber,
+                    Email = entity.Email,
+                    Allocation = entity.Allocation,
+                    GraduationDate = entity.GraduationDate,
+                    Education = entity.Education,
+                    NoteString = entity.NoteString
+                };
 
-                return View("Edit",  data);
+                return View("Index", data);
             }
 
 
         }
 
         // POST: InformationForm/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, InformationFormViewModel collection)
-        {
-            try
-            {
-                using (var db = DbFactory.Create())
-                {
-                    var entity = db.InformationForm.First(a => a.Id == collection.Id);
-                    entity.Location = collection.Location;
-                    entity.PreferredJob = collection.PreferredJob;
-                    entity.Name = collection.Name;
-                    entity.Surname = collection.Surname;
-                    entity.PhoneNumber = collection.PhoneNumber;
-                    entity.Email = collection.Email;
-                    entity.Allocation = collection.Allocation;
-                    entity.GraduationDate = collection.GraduationDate;
-                    entity.Education = collection.Education;
-                    entity.NoteString = collection.NoteString;
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit(int id, InformationFormViewModel collection)
+        //{
+        //    try
+        //    {
+        //        using (var db = DbFactory.Create())
+        //        {
+        //            var entity = db.InformationForm.First(a => a.Id == collection.Id);
+        //            entity.Location = collection.Location;
+        //            entity.PreferredJob = collection.PreferredJob;
+        //            entity.Name = collection.Name;
+        //            entity.Surname = collection.Surname;
+        //            entity.PhoneNumber = collection.PhoneNumber;
+        //            entity.Email = collection.Email;
+        //            entity.Allocation = collection.Allocation;
+        //            entity.GraduationDate = collection.GraduationDate;
+        //            entity.Education = collection.Education;
+        //            entity.NoteString = collection.NoteString;
 
-                    db.SaveChanges();
-                    TempData[MessageKey] = "Saved!";
-                }
+        //            db.SaveChanges();
+        //            TempData[MessageKey] = "Saved!";
+        //        }
 
-                return RedirectToAction("Index");
+        //        return RedirectToAction("Index");
 
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
         // GET: InformationForm/Delete/5
         public ActionResult Delete(int id)
