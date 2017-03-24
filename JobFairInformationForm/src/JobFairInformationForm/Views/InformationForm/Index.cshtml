@@ -8,7 +8,7 @@
 <img src="~/images/cn-group-logo.png" alt="logo" />
 @if (ViewData.ContainsKey(InformationFormController.MessageKey))
 {
-    <text>
+<text>
     <div id="successMessage" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
@@ -21,7 +21,14 @@
             </div>
         </div>
     </div>
-    </text>
+</text>
+}
+@foreach (var modelState in ViewData.ModelState.Values)
+{
+    foreach (var error in modelState.Errors)
+    {
+        <text><div class="text-danger">@error</div></text>
+    }
 }
 <form asp-action="Create">
     <input type="hidden" asp-for="Id" />
@@ -34,9 +41,9 @@
             <div class="col-sm-7">
                 @foreach (var checkbox in Model.LocationCheckboxes)
                 {
-                    <label for="location-@checkbox.Id" style="font-weight: normal">
-                        <input type="checkbox" id="location-@checkbox.Id" name="CheckedLocations[@checkbox.Id]" @if (checkbox.Checked) { <text> checked="checked" </text>  } /> @checkbox.Name
-                    </label><br>
+                <label for="location-@checkbox.Id" style="font-weight: normal">
+                    <input type="checkbox" id="location-@checkbox.Id" name="CheckedLocations[@checkbox.Id]" @if (checkbox.Checked) { <text> checked="checked" </text>  } /> @checkbox.Name
+                </label><br>
                 }
             </div>
         </div>
@@ -44,16 +51,16 @@
             <label asp-for="PreferredJob" class="col-sm-4 control-label">Preffered job</label>
             <div class="col-sm-7">
                 <label for="PreferredJob1" style="font-weight: normal">
-                    <input id="PreferredJob1" type="radio" name="PreferredJob" value="Tester" @if(Model.PreferredJob=="Tester"){<text>checked="checked"</text>}> SW Tester
+                    <input id="PreferredJob1" type="radio" name="PreferredJob" value="Tester" @if(Model.PreferredJob=="Tester" ){<text>checked="checked"</text>}> SW Tester
                 </label><br>
                 <label for="PreferredJob2" style="font-weight: normal">
-                    <input id="PreferredJob2" type="radio" name="PreferredJob" value="Developer"  @if(Model.PreferredJob=="Developer"){<text>checked="checked"</text>}> Developer
+                    <input id="PreferredJob2" type="radio" name="PreferredJob" value="Developer" @if(Model.PreferredJob=="Developer" ){<text>checked="checked"</text>}> Developer
                 </label><br>
                 <label for="PreferredJob3" style="font-weight: normal">
-                    <input id="PreferredJob3" type="radio" name="PreferredJob" value="Other"  @if(Model.PreferredJob!="Tester" && Model.PreferredJob != "Developer")
-                    {<text>checked="checked"</text>}/> Other <input type="text" name="PreferredJobOther" @if (Model.PreferredJob != "Tester" && Model.PreferredJob != "Developer") {<text> value="@Model.PreferredJob"</text>} id="other_name" />
+                    <input id="PreferredJob3" type="radio" name="PreferredJob" value="Other" @if(Model.PreferredJob!="Tester" && Model.PreferredJob !="Developer" )
+                           {<text>checked="checked"</text>}/> Other <input type="text" name="PreferredJobOther" @if (Model.PreferredJob !="Tester" && Model.PreferredJob !="Developer" ) {<text> value="@Model.PreferredJob"</text>} id="other_name" />
                 </label>
-             
+
             </div>
         </div>
         <div class="form-group">
@@ -88,18 +95,18 @@
             <label asp-for="Allocation" class="col-sm-4 control-label">Allocation</label>
             <div class="col-sm-7">
                 <input asp-for="Allocation" class="form-control" />
-                <span class="numberOfHours">Number of hours per week.</span><br /> 
+                <span class="numberOfHours">Number of hours per week.</span><br />
                 <span asp-validation-for="Allocation" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
             <label asp-for="GraduationDate" class="col-sm-4 control-label">Expected graduation date</label>
             <div class="col-sm-7">
-                <input asp-for="GraduationDate" class="form-control" placeholder="DD/MM/YYY" type="text"/>
+                <input asp-for="GraduationDate" class="form-control" placeholder="DD/MM/YYY" type="text" />
                 <span asp-validation-for="GraduationDate" class="text-danger" />
             </div>
         </div>
-        
+
         <div class="form-group">
             <label asp-for="Education" class="col-sm-4 control-label">Education</label>
             <div class="col-sm-7">
@@ -132,30 +139,30 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
 
-    <script type="text/javascript">
-        $(function () {
-            $('#successMessage').modal();
-        });
+<script type="text/javascript">
+    $(function () {
+        $('#successMessage').modal();
+    });
 
-        $('#other_name').click(function () {
+    $('#other_name').click(function () {
 
-            $('#PreferredJob3').prop('checked', true);
-        });
-        $("input[name='PreferredJob']:not(#PreferredJob3)").click(function () {
-            $('#other_name').val("");
-        })
+        $('#PreferredJob3').prop('checked', true);
+    });
+    $("input[name='PreferredJob']:not(#PreferredJob3)").click(function () {
+        $('#other_name').val("");
+    })
 
-        $(function () {
-            //var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : $("body");
-            var options = {
-                startDate: '+1d',
-                format: 'dd/mm/yyyy',
-                //container: container,
-                autoclose: true,
-                orientation: "bottom auto",
-            };
-            $('#GraduationDate').datepicker(options);
-        })
+    $(function () {
+        //var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : $("body");
+        var options = {
+            startDate: '+1d',
+            format: 'dd/mm/yyyy',
+            //container: container,
+            autoclose: true,
+            orientation: "bottom auto",
+        };
+        $('#GraduationDate').datepicker(options);
+    })
 
-    </script>
+</script>
 }
