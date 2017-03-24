@@ -64,6 +64,7 @@ namespace JobFairInformationForm.Controllers
                         Name = l.Name
                     }).ToList();
                 }
+                TempData[MessageKey] = "Invalid data!";
                 return View("Index", model);
             }
             try
