@@ -50,7 +50,6 @@ namespace JobFairInformationForm.Models.InformationForm
         public int Allocation { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Expected graduation date")]
         public DateTime GraduationDate { get; set; }
 
