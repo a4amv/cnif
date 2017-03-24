@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using System.Globalization;
 
 namespace JobFairInformationForm
 {
@@ -17,6 +17,8 @@ namespace JobFairInformationForm
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 .Build();
+
+            CultureInfo.CurrentCulture = new CultureInfo("en-GB");
 
             host.Run();
         }
