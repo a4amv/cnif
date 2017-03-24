@@ -63,8 +63,13 @@ namespace JobFairInformationForm.Controllers
                         Id = l.Id,
                         Name = l.Name
                     }).ToList();
+                    foreach (var pair in model.CheckedLocations)
+                    {
+                        var oneLocation = model.LocationCheckboxes.FirstOrDefault(c => c.Id == pair.Key);
+                        oneLocation.Checked = true;
+                    }
                 }
-                TempData[MessageKey] = "Invalid data!";
+                ViewData[MessageKey] = "Invalid data!";
                 return View("Index", model);
             }
             try
