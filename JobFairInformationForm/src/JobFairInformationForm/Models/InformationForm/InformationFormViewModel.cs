@@ -46,10 +46,10 @@ namespace JobFairInformationForm.Models.InformationForm
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Allocation is required.")]
+        [Range(1, 40)]
         public int Allocation { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Expected graduation date")]
         public DateTime GraduationDate { get; set; }
 

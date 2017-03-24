@@ -88,11 +88,10 @@
             <label asp-for="Allocation" class="col-sm-4 control-label">Allocation</label>
             <div class="col-sm-7">
                 <input asp-for="Allocation" class="form-control" />
+                <span class="numberOfHours">Number of hours per week.</span><br /> 
                 <span asp-validation-for="Allocation" class="text-danger" />
-                <span class="numberOfHours">Number of hours per week.</span>
             </div>
         </div>
-
         <div class="form-group">
             <label asp-for="GraduationDate" class="col-sm-4 control-label">Expected graduation date</label>
             <div class="col-sm-7">
@@ -147,11 +146,11 @@
         })
 
         $(function () {
-            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : $("body");
+            //var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : $("body");
             var options = {
                 startDate: '+1d',
                 format: 'dd/mm/yyyy',
-                container: container,
+                //container: container,
                 autoclose: true,
                 orientation: "bottom auto",
             };
