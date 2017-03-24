@@ -53,7 +53,7 @@
                     <input id="PreferredJob3" type="radio" name="PreferredJob" value="Other"  @if(Model.PreferredJob!="Tester" && Model.PreferredJob != "Developer")
                     {<text>checked="checked"</text>}/> Other <input type="text" name="PreferredJobOther" @if (Model.PreferredJob != "Tester" && Model.PreferredJob != "Developer") {<text> value="@Model.PreferredJob"</text>} id="other_name" />
                 </label>
-
+             
             </div>
         </div>
         <div class="form-group">
@@ -147,11 +147,11 @@
         })
 
         $(function () {
-            //var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : $("body");
+            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : $("body");
             var options = {
                 startDate: '+1d',
                 format: 'dd/mm/yyyy',
-                //container: container,
+                container: container,
                 autoclose: true,
                 orientation: "bottom auto",
             };
