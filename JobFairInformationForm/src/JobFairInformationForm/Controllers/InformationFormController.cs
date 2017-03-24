@@ -32,6 +32,7 @@ namespace JobFairInformationForm.Controllers
             {
                 var model = new InformationFormViewModel
                 {
+                    GraduationDate = DateTime.Today,
                     LocationCheckboxes = db.Location.Select(l => new Checkbox
                     {
                         Id = l.Id,
@@ -113,8 +114,15 @@ namespace JobFairInformationForm.Controllers
                         entity.InformationForm2Locations.Add(relation);
                     }
                     db.SaveChanges();
-                    TempData[MessageKey] = "Saved!";
-                    return RedirectToAction(isUpdateAction ? "Overview" : "Index");
+                    if (isUpdateAction)
+                    {
+                        return RedirectToAction( "Overview");
+                    }
+                    else
+                    {
+                        TempData[MessageKey] = "Saved!";
+                        return RedirectToAction( "Index");
+                    }
                 }
             }
             catch (Exception e)
@@ -184,39 +192,6 @@ namespace JobFairInformationForm.Controllers
 
         }
 
-        // POST: InformationForm/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit(int id, InformationFormViewModel collection)
-        //{
-        //    try
-        //    {
-        //        using (var db = DbFactory.Create())
-        //        {
-        //            var entity = db.InformationForm.First(a => a.Id == collection.Id);
-        //            entity.Location = collection.Location;
-        //            entity.PreferredJob = collection.PreferredJob;
-        //            entity.Name = collection.Name;
-        //            entity.Surname = collection.Surname;
-        //            entity.PhoneNumber = collection.PhoneNumber;
-        //            entity.Email = collection.Email;
-        //            entity.Allocation = collection.Allocation;
-        //            entity.GraduationDate = collection.GraduationDate;
-        //            entity.Education = collection.Education;
-        //            entity.NoteString = collection.NoteString;
-
-        //            db.SaveChanges();
-        //            TempData[MessageKey] = "Saved!";
-        //        }
-
-        //        return RedirectToAction("Index");
-
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
 
         // GET: InformationForm/Delete/5
         public ActionResult Delete(int id)
