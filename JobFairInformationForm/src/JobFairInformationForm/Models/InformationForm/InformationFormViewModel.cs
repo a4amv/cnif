@@ -16,7 +16,7 @@ namespace JobFairInformationForm.Models.InformationForm
         /// <summary>
         /// Only output value
         /// </summary>
-        [Required(ErrorMessage = "Location is required.")]
+        //[Required(ErrorMessage = "Location is required.")]
         public string Location { get; set; }
 
         public List<Checkbox> LocationCheckboxes { get; set; } = new List<Checkbox>();
@@ -26,7 +26,7 @@ namespace JobFairInformationForm.Models.InformationForm
         /// </summary>
         public Dictionary<int, string> CheckedLocations { get; set; } = new Dictionary<int, string>();
 
-        [Required(ErrorMessage = "Preferred job is required.")]
+        //[Required(ErrorMessage = "Preferred job is required.")]
         public string PreferredJob { get; set; }
 
         public string PreferredJobOther { get; set; }
@@ -50,6 +50,7 @@ namespace JobFairInformationForm.Models.InformationForm
         public int Allocation { get; set; }
 
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Expected graduation date")]
         public DateTime GraduationDate { get; set; }
 
