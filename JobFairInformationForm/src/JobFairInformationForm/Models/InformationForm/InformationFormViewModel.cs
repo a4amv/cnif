@@ -39,7 +39,7 @@ namespace JobFairInformationForm.Models.InformationForm
 
         [Required(ErrorMessage = "Telephone is required.")]
         [DataType(DataType.PhoneNumber)]
-        public int PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Email is required.")]
         [DataType(DataType.EmailAddress)]
