@@ -100,7 +100,7 @@ namespace JobFairInformationForm.Controllers
                     entity.Location = model.Location;
                     entity.Name = model.Name;
                     entity.Surname = model.Surname;
-                    //entity.PhoneNumber = model.PhoneNumber;
+                    entity.PhoneNumber = model.PhoneNumber;
                     entity.Email = model.Email;
                     entity.Education = model.Education;
                     entity.Allocation = model.Allocation;
@@ -148,7 +148,7 @@ namespace JobFairInformationForm.Controllers
                     Location = string.Join(", ", collection.InformationForm2Locations.Select(r => r.Location.Name).ToList()),
                     Name = collection.Name,
                     Surname = collection.Surname,
-                 //   PhoneNumber = collection.PhoneNumber,
+                    PhoneNumber = collection.PhoneNumber,
                     Email = collection.Email,
                     Education = collection.Education,
                     Allocation = collection.Allocation,
@@ -184,7 +184,7 @@ namespace JobFairInformationForm.Controllers
                     PreferredJob = entity.PreferredJob,
                     Name = entity.Name,
                     Surname = entity.Surname,
-                   // PhoneNumber = entity.PhoneNumber,
+                    PhoneNumber = entity.PhoneNumber,
                     Email = entity.Email,
                     Allocation = entity.Allocation,
                     GraduationDate = entity.GraduationDate,
