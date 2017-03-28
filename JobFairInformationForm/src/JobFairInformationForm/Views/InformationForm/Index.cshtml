@@ -36,7 +36,7 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
             <label asp-for="LocationCheckboxes" class="col-sm-4 control-label">Location</label>
-            <div class="col-sm-3">
+            <div class="col-md-3 col-sm-5">
                 @foreach (var checkbox in Model.LocationCheckboxes)
                 {
                     <label for="location-@checkbox.Id" style="font-weight: normal">
@@ -47,7 +47,7 @@
         </div>
         <div class="form-group">
             <label asp-for="PreferredJob" class="col-sm-4 control-label">Preffered job</label>
-            <div class="col-sm-3">
+            <div class="col-md-3 col-sm-5">
                 <div class="row">
                     <label for="PreferredJob1" class="col-sm-12" style="font-weight: normal">
                         <input id="PreferredJob1" type="radio" name="PreferredJob" value="Tester" @if (Model.PreferredJob == "Tester") { <text> checked="checked" </text>   }> SW Tester
@@ -69,35 +69,35 @@
         </div>
         <div class="form-group">
             <label asp-for="Name" class="col-sm-4 control-label">Name</label>
-            <div class="col-sm-3">
+            <div class="col-md-3 col-sm-5">
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
             <label asp-for="Surname" class="col-sm-4 control-label">Surname</label>
-            <div class="col-sm-3">
+            <div class="col-md-3 col-sm-5">
                 <input asp-for="Surname" class="form-control" />
                 <span asp-validation-for="Surname" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
             <label asp-for="PhoneNumber" class="col-sm-4 control-label">Phone number</label>
-            <div class="col-sm-3">
+            <div class="col-md-3 col-sm-5">
                 <input asp-for="PhoneNumber" class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
             <label asp-for="Email" class="col-sm-4 control-label">Email</label>
-            <div class="col-sm-3">
+            <div class="col-md-3 col-sm-5">
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
             <label asp-for="Allocation" class="col-sm-4 control-label">Allocation</label>
-            <div class="col-sm-3">
+            <div class="col-md-3 col-sm-5">
                 <input asp-for="Allocation" class="form-control" />
                 <span class="numberOfHours">Number of hours per week.</span><br />
                 <span asp-validation-for="Allocation" class="text-danger" />
@@ -105,7 +105,7 @@
         </div>
         <div class="form-group">
             <label asp-for="GraduationDate" class="col-sm-4 control-label">Expected graduation date</label>
-            <div class="col-sm-3">
+            <div class="col-md-3 col-sm-5">
                 <input asp-for="GraduationDate" class="form-control" placeholder="DD/MM/YYY" type="text" />
                 <span asp-validation-for="GraduationDate" class="text-danger" />
             </div>
@@ -113,21 +113,21 @@
 
         <div class="form-group">
             <label asp-for="Education" class="col-sm-4 control-label">Education</label>
-            <div class="col-sm-3">
+            <div class="col-md-3 col-sm-5">
                 <input asp-for="Education" class="form-control" />
                 <span asp-validation-for="Education" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
             <label asp-for="NoteString" class="col-sm-4 control-label">Note</label>
-            <div class="col-sm-3">
+            <div class="col-md-3 col-sm-5">
                 <input asp-for="NoteString" class="form-control" />
                 <span asp-validation-for="NoteString" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-6">
-                By submitting this form you agree to terms and conditions
+            <div class="col-sm-offset-3 col-sm-6">
+                By submitting this form you agree to your personal data being processed 
                 <a class="link_agreement" data-toggle="collapse" href="#agreement" aria-expanded="false" aria-controls="agreement">
                     (click for more information).
                 </a>

@@ -1,5 +1,5 @@
 ﻿
-    
+
 body {
     padding-top: 50px;
     padding-bottom: 20px;
@@ -26,72 +26,70 @@ textarea {
 }
 
 /* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"]
-{
+.carousel-inner .item img[src$=".svg"] {
     width: 100%;
 }
 
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
-  /* Hide captions */
-  .carousel-caption {
-    display: none
-  }
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+
+    img {
+        height: 50px !important;
+    }
 }
 
 
 img {
-     float:right;
-     margin-top: -75px;
-     height:100px;
+    float: right;
+    margin-top: -75px;
+    height: 100px;
 }
 
 form {
-    margin:0 auto;
-
+    margin: 0 auto;
 }
 
 
-body  {
-  
+body {
 }
 
-body::after  {
-    background: url(fingerprint.png);
-    background-position: center;
-    background-repeat:no-repeat;
-    background-size: 70rem;
-    border: 1px solid black;
-    opacity:0.05;
-    content: "";
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      position: absolute;
-      z-index: -1;   
-}
+    body::after {
+        background: url(fingerprint.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 70rem;
+        border: 1px solid black;
+        opacity: 0.05;
+        content: "";
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        position: absolute;
+        z-index: -1;
+    }
 
 .row * {
-    opacity:1;
-
+    opacity: 1;
 }
 
 .numberOfHours {
-    font-size:10px;
-    color:black;
+    font-size: 10px;
+    color: black;
 }
 
 .link_agreement {
-    text-decoration:none;
-    font-size:13px;
+    text-decoration: none;
+    font-size: 14px;
 }
 
 
 
 #agreement .text_agreement p {
-    font-size:12px;
-    text-align:justify;
+    font-size: 12px;
+    text-align: justify;
 }
-
-
