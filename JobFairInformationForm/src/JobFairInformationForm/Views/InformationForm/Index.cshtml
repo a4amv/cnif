@@ -2,13 +2,11 @@
 @using JobFairInformationForm.Controllers;
 @using JobFairInformationForm.Database.Entities;
 
-<h2>
-    Questionnaire
-</h2>
+<h2>Questionnaire</h2>
 <img src="~/images/cn-group-logo.png" alt="logo" />
 @if (ViewData.ContainsKey(InformationFormController.MessageKey))
 {
-<text>
+    <text>
     <div id="successMessage" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
@@ -21,7 +19,7 @@
             </div>
         </div>
     </div>
-</text>
+    </text>
 }
 @foreach (var modelState in ViewData.ModelState.Values)
 {
@@ -38,62 +36,68 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
             <label asp-for="LocationCheckboxes" class="col-sm-4 control-label">Location</label>
-            <div class="col-sm-7">
+            <div class="col-sm-3">
                 @foreach (var checkbox in Model.LocationCheckboxes)
                 {
-                <label for="location-@checkbox.Id" style="font-weight: normal">
-                    <input type="checkbox" id="location-@checkbox.Id" name="CheckedLocations[@checkbox.Id]" @if (checkbox.Checked) { <text> checked="checked" </text>  } /> @checkbox.Name
-                </label><br>
+                    <label for="location-@checkbox.Id" style="font-weight: normal">
+                        <input type="checkbox" id="location-@checkbox.Id" name="CheckedLocations[@checkbox.Id]" @if (checkbox.Checked) { <text> checked="checked" </text>    } /> @checkbox.Name
+                    </label><br>
                 }
             </div>
         </div>
         <div class="form-group">
             <label asp-for="PreferredJob" class="col-sm-4 control-label">Preffered job</label>
-            <div class="col-sm-7">
-                <label for="PreferredJob1" style="font-weight: normal">
-                    <input id="PreferredJob1" type="radio" name="PreferredJob" value="Tester" @if(Model.PreferredJob=="Tester" ){<text>checked="checked"</text>}> SW Tester
-                </label><br>
-                <label for="PreferredJob2" style="font-weight: normal">
-                    <input id="PreferredJob2" type="radio" name="PreferredJob" value="Developer" @if(Model.PreferredJob=="Developer" ){<text>checked="checked"</text>}> Developer
-                </label><br>
-                <label for="PreferredJob3" style="font-weight: normal">
-                    <input id="PreferredJob3" type="radio" name="PreferredJob" value="Other" @if(Model.PreferredJob!="Tester" && Model.PreferredJob !="Developer" )
-                           {<text>checked="checked"</text>}/> Other <input type="text" name="PreferredJobOther" @if (Model.PreferredJob !="Tester" && Model.PreferredJob !="Developer" ) {<text> value="@Model.PreferredJob"</text>} id="other_name" />
+            <div class="col-sm-3">
+                <div class="row">
+                    <label for="PreferredJob1" class="col-sm-12" style="font-weight: normal">
+                        <input id="PreferredJob1" type="radio" name="PreferredJob" value="Tester" @if (Model.PreferredJob == "Tester") { <text> checked="checked" </text>   }> SW Tester
+                    </label>
+                </div>
+                <div class="row">
+                    <label for="PreferredJob2" class="col-sm-12" style="font-weight: normal">
+                        <input id="PreferredJob2" type="radio" name="PreferredJob" value="Developer" @if (Model.PreferredJob == "Developer") { <text> checked="checked" </text>    }> Developer
+                    </label>
+                </div>
+                <label for="PreferredJob3" class="row" style="font-weight: normal;max-width:none;margin-bottom:0;">
+                    <span class="col-sm-12">
+                        <input id="PreferredJob3" type="radio" name="PreferredJob" value="Other" @if (Model.PreferredJob != "Tester" && Model.PreferredJob != "Developer") { <text> checked="checked" </text>      } />
+                        Other
+                        <input type="text" class="form-control" style="display:inline-block;width:20rem;" name="PreferredJobOther" @if (Model.PreferredJob != "Tester" && Model.PreferredJob != "Developer") { <text> value="@Model.PreferredJob" </text>      } id="other_name" />
+                    </span>
                 </label>
-
             </div>
         </div>
         <div class="form-group">
             <label asp-for="Name" class="col-sm-4 control-label">Name</label>
-            <div class="col-sm-7">
+            <div class="col-sm-3">
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
             <label asp-for="Surname" class="col-sm-4 control-label">Surname</label>
-            <div class="col-sm-7">
+            <div class="col-sm-3">
                 <input asp-for="Surname" class="form-control" />
                 <span asp-validation-for="Surname" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
             <label asp-for="PhoneNumber" class="col-sm-4 control-label">Phone number</label>
-            <div class="col-sm-7">
-                <input asp-for="PhoneNumber" class="form-control"/>
+            <div class="col-sm-3">
+                <input asp-for="PhoneNumber" class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
             <label asp-for="Email" class="col-sm-4 control-label">Email</label>
-            <div class="col-sm-7">
+            <div class="col-sm-3">
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
             <label asp-for="Allocation" class="col-sm-4 control-label">Allocation</label>
-            <div class="col-sm-7">
+            <div class="col-sm-3">
                 <input asp-for="Allocation" class="form-control" />
                 <span class="numberOfHours">Number of hours per week.</span><br />
                 <span asp-validation-for="Allocation" class="text-danger" />
@@ -101,7 +105,7 @@
         </div>
         <div class="form-group">
             <label asp-for="GraduationDate" class="col-sm-4 control-label">Expected graduation date</label>
-            <div class="col-sm-7">
+            <div class="col-sm-3">
                 <input asp-for="GraduationDate" class="form-control" placeholder="DD/MM/YYY" type="text" />
                 <span asp-validation-for="GraduationDate" class="text-danger" />
             </div>
@@ -109,16 +113,40 @@
 
         <div class="form-group">
             <label asp-for="Education" class="col-sm-4 control-label">Education</label>
-            <div class="col-sm-7">
+            <div class="col-sm-3">
                 <input asp-for="Education" class="form-control" />
                 <span asp-validation-for="Education" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
             <label asp-for="NoteString" class="col-sm-4 control-label">Note</label>
-            <div class="col-sm-7">
+            <div class="col-sm-3">
                 <input asp-for="NoteString" class="form-control" />
                 <span asp-validation-for="NoteString" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-6">
+                By submitting this form you agree to terms and conditions
+                <a class="link_agreement" data-toggle="collapse" href="#agreement" aria-expanded="false" aria-controls="agreement">
+                    (click for more information).
+                </a>
+            </div>
+        </div>
+        <div class="collapse" id="agreement">
+            <div class="text_agreement">
+                <p>
+                    I hereby give my consent to processing of my personal data. Personal data processing is regulated by Act No. 101/2000 Coll.,
+                    on personal data protection. The consent is granted to CN Group CZ s.r.o. as the data controller for the purposes of the selection
+                    procedure for the given job and further for the purposes of registration of myself as a potential employee of the company. I give
+                    my consent for the term of 5 year from the date of provision of the personal data. I acknowledge that the consent is given voluntarily
+                    and may be withdrawn at any time. I have been advised of my right to obtain information as to what personal data are being processed
+                    in relation to me, for what purpose and in what manner. Should I ascertain or believe that the controller processes my personal data
+                    at variance with protection of my private and personal life or at variance with the law, particularly if the personal data are
+                    inaccurate in view of the purpose of their processing, I may request the controller to provide an explanation or claim that the
+                    controller remedy the state of affairs. This may include particularly blocking, correcting, supplementing or destroying the personal
+                    data.
+                </p>
             </div>
         </div>
         <div class="form-group">
@@ -126,8 +154,8 @@
                 <input type="submit" value="Save" class="btn btn-danger" />
                 <a asp-action="Index" class="btn btn-default">Cancel</a>
             </div>
-
         </div>
+
     </div>
 </form>
 
@@ -139,30 +167,31 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
 
-<script type="text/javascript">
-    $(function () {
-        $('#successMessage').modal();
-    });
+    <script type="text/javascript">
+        $(function () {
+            $('#successMessage').modal();
+        });
 
-    $('#other_name').click(function () {
+        $('#other_name').click(function () {
 
-        $('#PreferredJob3').prop('checked', true);
-    });
-    $("input[name='PreferredJob']:not(#PreferredJob3)").click(function () {
-        $('#other_name').val("");
-    })
+            $('#PreferredJob3').prop('checked', true);
+        });
+        $("input[name='PreferredJob']:not(#PreferredJob3)").click(function () {
+            $('#other_name').val("");
+        })
 
-    $(function () {
-        //var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : $("body");
-        var options = {
-            startDate: '+1d',
-            format: 'dd/mm/yyyy',
-            //container: container,
-            autoclose: true,
-            orientation: "bottom auto",
-        };
-        $('#GraduationDate').datepicker(options);
-    })
+        $(function () {
+            //var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : $("body");
+            var options = {
+                startDate: '+1d',
+                format: 'dd/mm/yyyy',
+                //container: container,
+                autoclose: true,
+                orientation: "bottom auto",
+            };
+            $('#GraduationDate').datepicker(options);
+        })
 
-</script>
+
+    </script>
 }
