@@ -38,6 +38,7 @@ namespace JobFairInformationForm.Models.InformationForm
         public string Surname { get; set; }
 
         [Required(ErrorMessage = "Telephone is required.")]
+        [RegularExpression(@"^\+?(\d[\d-. ]+)?(\([\d-. ]+\))?[\d-. ]+\d$", ErrorMessage = "Telephone number is not valid.")]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
 

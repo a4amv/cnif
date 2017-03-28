@@ -89,7 +89,7 @@ namespace JobFairInformationForm.Controllers
                             TempData[MessageKey] = "User not found!";
                             return RedirectToAction("Index");
                         }
-                        db.RemoveRange(entity.InformationForm2Locations);                        
+                        db.RemoveRange(entity.InformationForm2Locations);
                         db.SaveChanges();
                     }
                     else
