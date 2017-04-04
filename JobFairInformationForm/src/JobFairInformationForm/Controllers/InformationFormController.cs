@@ -154,7 +154,8 @@ namespace JobFairInformationForm.Controllers
                     Allocation = collection.Allocation,
                     GraduationDate = collection.GraduationDate,
                     PreferredJob = collection.PreferredJob,
-                    NoteString = collection.NoteString
+                    NoteString = collection.NoteString,
+                    CurrentDate = collection.CurrentDate
                 }).ToList();
 
                 return View(data);
@@ -189,7 +190,8 @@ namespace JobFairInformationForm.Controllers
                     Allocation = entity.Allocation,
                     GraduationDate = entity.GraduationDate,
                     Education = entity.Education,
-                    NoteString = entity.NoteString
+                    NoteString = entity.NoteString,
+                    CurrentDate = entity.CurrentDate
                 };
 
                 return View("Index", data);

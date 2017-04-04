@@ -19,6 +19,10 @@ namespace JobFairInformationForm.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<InformationForm>()
+            .Property(b => b.CurrentDate)
+            .HasDefaultValueSql("getdate()");
+
             modelBuilder.Entity<InformationForm2Location>()
                         .HasKey(c => new { c.InformationFormId, c.LocationId });
 

@@ -42,6 +42,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.NoteString)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentDate)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -76,6 +79,9 @@
                 @Html.DisplayFor(modelItem => item.Education)
             <td>
                 @Html.DisplayFor(modelItem => item.NoteString)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentDate)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id  }) 

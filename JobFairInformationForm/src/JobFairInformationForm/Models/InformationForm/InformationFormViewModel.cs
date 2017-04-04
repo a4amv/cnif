@@ -17,9 +17,9 @@ namespace JobFairInformationForm.Models.InformationForm
         /// Only output value
         /// </summary>
         //[Required(ErrorMessage = "Location is required.")]
-        [Display(Name ="Location")]
+        [Display(Name = "Location")]
         public string Location { get; set; }
-        
+
         public List<Checkbox> LocationCheckboxes { get; set; } = new List<Checkbox>();
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace JobFairInformationForm.Models.InformationForm
         public Dictionary<int, string> CheckedLocations { get; set; } = new Dictionary<int, string>();
 
         //[Required(ErrorMessage = "Preferred job is required.")]
-        [Display(Name ="Preferred job")]
+        [Display(Name = "Preferred job")]
         public string PreferredJob { get; set; }
 
         public string PreferredJobOther { get; set; }
@@ -54,7 +54,7 @@ namespace JobFairInformationForm.Models.InformationForm
 
         [Display(Name = "Allocation")]
         [Required(ErrorMessage = "Allocation is required.")]
-        [Range(1, 40)]
+        [Range(1, 40, ErrorMessage = "The field allocation must be between 1 and 40.")]
         public int Allocation { get; set; }
 
         [DataType(DataType.Date)]
@@ -66,5 +66,9 @@ namespace JobFairInformationForm.Models.InformationForm
 
         [Display(Name = "Note")]
         public string NoteString { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "Entry date")]
+        public DateTime CurrentDate { get; set; }
     }
 }

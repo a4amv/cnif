@@ -8,9 +8,10 @@ using JobFairInformationForm.Database;
 namespace JobFairInformationForm.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170404095543_DateTimeCurrentDate")]
+    partial class DateTimeCurrentDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -23,9 +24,7 @@ namespace JobFairInformationForm.Migrations
 
                     b.Property<int>("Allocation");
 
-                    b.Property<DateTime>("CurrentDate")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("getdate()");
+                    b.Property<DateTime>("CurrentDate");
 
                     b.Property<string>("Education");
 
