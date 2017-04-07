@@ -9,7 +9,7 @@
 <p>
     <a asp-action="Index" class="btn btn-danger">Create new</a>
 </p>
-<table class="table">
+<table class="table table-striped " cellspacing="0" role="grid" style="width: 100%;" >
     <thead>
         <tr>
             <th>
@@ -66,7 +66,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PhoneNumber)
             </td>
-            <td>
+            <td> 
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
@@ -80,7 +80,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.NoteString)
             </td>
-            <td>
+            <td style="width: 120px;">
                 @Html.DisplayFor(modelItem => item.CurrentDate)
             </td>
             <td>
@@ -91,3 +91,13 @@
 }
     </tbody>
 </table>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script type="text/javascript">
+$(document).ready( function () {
+    $('.table').DataTable();
+});
+</script>
+    }

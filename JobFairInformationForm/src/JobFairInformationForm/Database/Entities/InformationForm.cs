@@ -33,6 +33,7 @@ namespace JobFairInformationForm.Database.Entities
 
         public virtual List<InformationForm2Location> InformationForm2Locations { get; set; } = new List<InformationForm2Location>();
 
+
         public DateTime CurrentDate { get; set; } = DateTime.Now;
     }
 }
