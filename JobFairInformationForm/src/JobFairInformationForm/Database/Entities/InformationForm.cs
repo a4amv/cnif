@@ -15,6 +15,8 @@ namespace JobFairInformationForm.Database.Entities
 
         public string PreferredJob { get; set; }
 
+        public bool CNUniversity { get; set; }
+
         public string Name { get; set; }
         
         public string Surname { get; set; }

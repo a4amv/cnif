@@ -54,6 +54,17 @@ namespace JobFairInformationForm.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(InformationFormViewModel model)
         {
+            //Additional validation
+            if (model.PreferredJob == "Other" && string.IsNullOrWhiteSpace(model.PreferredJobOther))
+            {
+                ModelState.AddModelError(nameof(model.PreferredJob), "Fill preferred job");
+            }
+
+            if (model.CheckedLocations.Count == 0)
+            {
+                ModelState.AddModelError(nameof(model.CheckedLocations), "Select at least one location");
+            }
+
             if (!ModelState.IsValid)
             {
                 using (var db = DbFactory.Create())
@@ -98,6 +109,7 @@ namespace JobFairInformationForm.Controllers
                         db.Add(entity);
                     }
                     entity.Location = model.Location;
+                    entity.CNUniversity = model.CNUniversity;
                     entity.Name = model.Name;
                     entity.Surname = model.Surname;
                     entity.PhoneNumber = model.PhoneNumber;
@@ -146,6 +158,7 @@ namespace JobFairInformationForm.Controllers
                 {
                     Id = collection.Id,
                     Location = string.Join(", ", collection.InformationForm2Locations.Select(r => r.Location.Name).ToList()),
+                    CNUniversity = collection.CNUniversity,
                     Name = collection.Name,
                     Surname = collection.Surname,
                     PhoneNumber = collection.PhoneNumber,
@@ -183,6 +196,7 @@ namespace JobFairInformationForm.Controllers
                     Id = entity.Id,
                     LocationCheckboxes = allCheckboxes,
                     PreferredJob = entity.PreferredJob,
+                    CNUniversity = entity.CNUniversity,
                     Name = entity.Name,
                     Surname = entity.Surname,
                     PhoneNumber = entity.PhoneNumber,

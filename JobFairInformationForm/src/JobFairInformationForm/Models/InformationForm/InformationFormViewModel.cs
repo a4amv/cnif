@@ -28,10 +28,14 @@ namespace JobFairInformationForm.Models.InformationForm
         public Dictionary<int, string> CheckedLocations { get; set; } = new Dictionary<int, string>();
 
         //[Required(ErrorMessage = "Preferred job is required.")]
-        [Display(Name = "Preferred job")]
+        [Display(Name = "Preferred")]
+        [Required(ErrorMessage = "Preferred job is required.")]
         public string PreferredJob { get; set; }
 
         public string PreferredJobOther { get; set; }
+
+        [Display(Name = "CN University")]
+        public bool CNUniversity { get; set; }
 
         [Display(Name = "Name")]
         [Required(ErrorMessage = "Name is required.")]
@@ -54,8 +58,8 @@ namespace JobFairInformationForm.Models.InformationForm
 
         [Display(Name = "Allocation")]
         [Required(ErrorMessage = "Allocation is required.")]
-        [Range(1, 40, ErrorMessage = "The field allocation must be between 1 and 40.")]
-        public int Allocation { get; set; }
+        [Range(20, 40, ErrorMessage = "The field allocation must be between 20 and 40.")]
+        public int Allocation { get; set; } = 20;
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

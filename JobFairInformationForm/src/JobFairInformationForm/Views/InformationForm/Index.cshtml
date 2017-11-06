@@ -2,6 +2,9 @@
 @using JobFairInformationForm.Controllers;
 @using JobFairInformationForm.Database.Entities;
 
+@{
+    ViewData["Title"] = "Questionnaire";
+}
 <h2>Questionnaire</h2>
 <img src="~/images/cn-group-logo.png" alt="logo" />
 @if (ViewData.ContainsKey(InformationFormController.MessageKey))
@@ -43,10 +46,11 @@
                         <input type="checkbox" id="location-@checkbox.Id" name="CheckedLocations[@checkbox.Id]" @if (checkbox.Checked) { <text> checked="checked" </text>    } /> @checkbox.Name
                     </label><br>
                 }
+                <span asp-validation-for="CheckedLocations" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="PreferredJob" class="col-sm-4 control-label">Preferred job</label>
+            <label asp-for="PreferredJob" class="col-sm-4 control-label">Preferred</label>
             <div class="col-md-3 col-sm-5">
                 <div class="row">
                     <label for="PreferredJob1" class="col-sm-12" style="font-weight: normal">
@@ -60,61 +64,73 @@
                 </div>
                 <label for="PreferredJob3" class="row" style="font-weight: normal;max-width:none;margin-bottom:0;">
                     <span class="col-sm-12">
-                        <input id="PreferredJob3" type="radio" name="PreferredJob" value="Other" @if (Model.PreferredJob != "Tester" && Model.PreferredJob != "Developer") { <text> checked="checked" </text>      } />
+                        <input id="PreferredJob3" type="radio" name="PreferredJob" value="Other" @if (Model.PreferredJob == "Other") { <text> checked="checked" </text>      } />
                         Other
                         <input type="text" class="form-control" style="display:inline-block;width:20rem;" name="PreferredJobOther" @if (Model.PreferredJob != "Tester" && Model.PreferredJob != "Developer") { <text> value="@Model.PreferredJob" </text>      } id="other_name" />
+                        <span class="text-danger"></span>
                     </span>
                 </label>
+                <span asp-validation-for="PreferredJob" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="Name" class="col-sm-4 control-label">Name *</label>
+            <label class="col-sm-4 control-label">CN University</label>
+            <div class="col-md-3 col-sm-5">
+                <label for="CNUniversity" style="font-weight: normal;">
+                    @Html.CheckBoxFor(m =>m.CNUniversity) I want to participate
+                </label>
+                
+                <span asp-validation-for="CNUniversity" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Name" class="col-sm-4 control-label">First Names *</label>
             <div class="col-md-3 col-sm-5">
                 <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger" />
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="Surname" class="col-sm-4 control-label">Surname *</label>
+            <label asp-for="Surname" class="col-sm-4 control-label">Last Name *</label>
             <div class="col-md-3 col-sm-5">
                 <input asp-for="Surname" class="form-control" />
-                <span asp-validation-for="Surname" class="text-danger" />
+                <span asp-validation-for="Surname" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <label asp-for="PhoneNumber" class="col-sm-4 control-label">Phone number *</label>
             <div class="col-md-3 col-sm-5">
                 <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <label asp-for="Email" class="col-sm-4 control-label">Email *</label>
             <div class="col-md-3 col-sm-5">
                 <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger" />
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group">
             <label asp-for="Allocation" class="col-sm-4 control-label">Allocation *</label>
             <div class="col-md-3 col-sm-5">
                 <input asp-for="Allocation" class="form-control" />
-                <span class="numberOfHours">Number of hours per week.</span><br />
-                <span asp-validation-for="Allocation" class="text-danger" />
+                <span class="numberOfHours">Number of hours per week. At least 20 hours.</span><br />
+                <span asp-validation-for="Allocation" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group">
+        @*<div class="form-group">
             <label asp-for="GraduationDate" class="col-sm-4 control-label">Expected graduation date</label>
             <div class="col-md-3 col-sm-5">
                 <input asp-for="GraduationDate" class="form-control" placeholder="DD/MM/YYY" type="text" />
                 <span asp-validation-for="GraduationDate" class="text-danger" />
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             <label asp-for="Education" class="col-sm-4 control-label">Education</label>
             <div class="col-md-3 col-sm-5">
-                <input asp-for="Education" class="form-control" />
+                <input asp-for="Education" class="form-control" placeholder="Field of study" />
                 <span asp-validation-for="Education" class="text-danger" />
             </div>
         </div>
@@ -160,8 +176,8 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-4 col-sm-4">
-                <input type="submit" value="Save" class="btn btn-danger" />
                 <a asp-action="Index" class="btn btn-default">Cancel</a>
+                <input type="submit" value="Save" class="btn btn-danger" />
             </div>
         </div>
 
@@ -177,19 +193,19 @@
 
 
     <script type="text/javascript">
-        $(function () {
-            $('#successMessage').modal();
-        });
+    $(function() {
+        $('#successMessage').modal();
+    });
 
-        $('#other_name').click(function () {
+    $('#other_name').click(function() {
 
-            $('#PreferredJob3').prop('checked', true);
-        });
-        $("input[name='PreferredJob']:not(#PreferredJob3)").click(function () {
-            $('#other_name').val("");
-        })
+        $('#PreferredJob3').prop('checked', true);
+    });
+    $("input[name='PreferredJob']:not(#PreferredJob3)").click(function() {
+        $('#other_name').val("");
+    })
 
-        $(function () {
+    $(function() {
             //var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : $("body");
             var options = {
                 startDate: '+1d',
@@ -198,16 +214,38 @@
                 autoclose: true,
                 orientation: "bottom auto",
             };
-            $('#GraduationDate').datepicker(options);
-        })
+            //$('#GraduationDate').datepicker(options);
 
-        $('form').on('keyup keypress', function (e) {
-            var keyCode = e.keyCode || e.which;
-            //Disable form submit when enter is pressed
-            if (keyCode === 13) {
-                e.preventDefault();
-                return false;
-            }
+
+            $('form').on('keyup keypress',
+                function(e) {
+                    var keyCode = e.keyCode || e.which;
+                    //Disable form submit when enter is pressed
+                    if (keyCode === 13) {
+                        e.preventDefault();
+                        return false;
+                    }
+                });
+
+            //Validation before submit
+            //$('form button[type=submit], form input[type=submit]').on('click',
+            //    function (e) {
+            //        var $form = $(e.target).parents('form');
+            //        $form.validate();
+            //        var isValid = $form.valid();
+            //        // Preferred job "Other" can not have empty text
+            //        $(".validation-preferredJob-textMustBeFilled").remove(); console.log($("input[name='PreferredJob']").val())
+            //        if ($("#PreferredJob3").is(":checked")) {
+            //            if (!$("input[name='PreferredJobOther']").val()) {
+            //                $("span[data-valmsg-for='PreferredJob']")
+            //                    .append($("<div class='validation-preferredJob-textMustBeFilled'>Fill preferred job</div>"));
+            //                isValid = false;
+            //            }
+            //        }
+            //        if (!isValid) {
+            //            e.preventDefault(); //prevent the default action
+            //        }
+            //    });
         });
 
     </script>
