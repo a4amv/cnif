@@ -201,5 +201,14 @@
             $('#GraduationDate').datepicker(options);
         })
 
+        $('form').on('keyup keypress', function (e) {
+            var keyCode = e.keyCode || e.which;
+            //Disable form submit when enter is pressed
+            if (keyCode === 13) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
     </script>
 }
